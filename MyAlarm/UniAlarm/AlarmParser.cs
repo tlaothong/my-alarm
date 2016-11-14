@@ -21,9 +21,37 @@ namespace UniAlarm
             throw new NotImplementedException();
         }
 
-        internal IEnumerable<AlarmConfig> Parse(string alarmsConfigFileContent)
+        internal IEnumerable<AlarmConfig> Parse(string[] alarmsConfigLines)
         {
-            throw new NotImplementedException();
+            var configs = from line in alarmsConfigLines
+                          where !string.IsNullOrWhiteSpace(line)
+                          select ParseConfigItem(line);
+            return configs;
+        }
+
+        private AlarmConfig ParseConfigItem(string alarmConfig)
+        {
+            var splitIndex = alarmConfig.IndexOf(' ');
+
+            if (splitIndex > 0)
+            {
+                var timeConfig = alarmConfig.Substring(0, splitIndex).Trim();
+                var soundFiConfig = alarmConfig.Substring(splitIndex).Trim();
+
+                TimeSpan time;
+                if (TimeSpan.TryParse(timeConfig, out time))
+                {
+                    return new AlarmConfig
+                    {
+                        Time = time,
+                        SoundPath = soundFiConfig,
+                    };
+                }
+            }
+
+            throw new FormatException(string.Format(
+                "Alarm Configuration is not property format: `{0}`",
+                alarmConfig));
         }
     }
 }

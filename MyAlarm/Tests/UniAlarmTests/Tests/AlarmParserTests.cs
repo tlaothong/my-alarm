@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using FluentAssertions;
+using System.IO;
 
 namespace UniAlarm.Tests
 {
@@ -47,15 +48,19 @@ namespace UniAlarm.Tests
 22:30 file3
 23:00 url3
 ";
+            var lines = alarmsConfig.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
             var parser = new AlarmParser("invalid_config_file");
-            var result = parser.Parse(alarmsConfig);
-            result.Should().BeEquivalentTo(
-                new AlarmConfig { Time = TimeSpan.FromHours(10.75), SoundPath = "file1" },
-                new AlarmConfig { Time = TimeSpan.FromHours(11.5), SoundPath = "url1" },
-                new AlarmConfig { Time = TimeSpan.FromHours(12), SoundPath = "file2" },
-                new AlarmConfig { Time = TimeSpan.FromHours(22), SoundPath = "url2" },
-                new AlarmConfig { Time = TimeSpan.FromHours(22.5), SoundPath = "file3" },
-                new AlarmConfig { Time = TimeSpan.FromHours(23), SoundPath = "url3" }
+            var result = parser.Parse(lines);
+            result.Should().Equal(
+                new AlarmConfig[] {
+                    new AlarmConfig { Time = TimeSpan.FromHours(10.75), SoundPath = "file1" },
+                    new AlarmConfig { Time = TimeSpan.FromHours(11.5), SoundPath = "url1" },
+                    new AlarmConfig { Time = TimeSpan.FromHours(12), SoundPath = "file2" },
+                    new AlarmConfig { Time = TimeSpan.FromHours(22), SoundPath = "url2" },
+                    new AlarmConfig { Time = TimeSpan.FromHours(22.5), SoundPath = "file3" },
+                    new AlarmConfig { Time = TimeSpan.FromHours(23), SoundPath = "url3" }
+                },
+                (a, b) => a.Time == b.Time && a.SoundPath == b.SoundPath
             );
         }
 
