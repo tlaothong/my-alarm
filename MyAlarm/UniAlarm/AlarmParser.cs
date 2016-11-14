@@ -15,5 +15,15 @@ namespace UniAlarm
         {
             this.ConfigFileFullPath = fullPathToConfigFile;
         }
+
+        public IEnumerable<AlarmConfig> Parse()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal IEnumerable<AlarmConfig> Parse(string alarmsConfigFileContent)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

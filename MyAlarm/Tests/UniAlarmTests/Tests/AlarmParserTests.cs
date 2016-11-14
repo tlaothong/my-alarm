@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
+using FluentAssertions;
 
 namespace UniAlarm.Tests
 {
@@ -35,7 +37,26 @@ namespace UniAlarm.Tests
         [TestMethod]
         public void ParseAlarm()
         {
-            Assert.Inconclusive();
+            var alarmsConfig = @"
+10:45 file1
+
+11:30 url1
+
+12:00 file2
+22:00 url2
+22:30 file3
+23:00 url3
+";
+            var parser = new AlarmParser("invalid_config_file");
+            var result = parser.Parse(alarmsConfig);
+            result.Should().BeEquivalentTo(
+                new AlarmConfig { Time = TimeSpan.FromHours(10.75), SoundPath = "file1" },
+                new AlarmConfig { Time = TimeSpan.FromHours(11.5), SoundPath = "url1" },
+                new AlarmConfig { Time = TimeSpan.FromHours(12), SoundPath = "file2" },
+                new AlarmConfig { Time = TimeSpan.FromHours(22), SoundPath = "url2" },
+                new AlarmConfig { Time = TimeSpan.FromHours(22.5), SoundPath = "file3" },
+                new AlarmConfig { Time = TimeSpan.FromHours(23), SoundPath = "url3" }
+            );
         }
 
         [TestMethod]

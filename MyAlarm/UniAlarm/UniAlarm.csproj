@@ -47,6 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlarmConfig.cs" />
     <Compile Include="AlarmParser.cs" />
     <Compile Include="AlarmService.cs" />
     <Compile Include="Program.cs" />
