@@ -4,6 +4,7 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using Topshelf;
 
 namespace UniAlarm
 {
@@ -11,16 +12,20 @@ namespace UniAlarm
     {
         static void Main(string[] args)
         {
-            var player = new SoundPlayer("http://www.wavsource.com/snds_2016-10-30_1570758759693582/movies/aladdin/aladdin_fast.wav");
-            player.Play();
+            HostFactory.Run(fac =>
+            {
+                fac.Service<AlarmService>(cfg =>
+                {
+                    cfg.ConstructUsing(() => new AlarmService())
+                        .WhenStarted(svc => svc.TryPlaySound())
+                        .WhenStopped(svc => { });
+                });
+                fac.SetDescription("Universal Alarm App/Service");
+                fac.SetDisplayName("Universal Alarm Service");
+                fac.SetServiceName("UniAlarm");
 
-            Console.ReadLine();
-
-            player.SoundLocation = @"D:\src\git\my-alarm\assets\aladdin_who_disturbs.wav";
-            player.Load();
-            player.Play();
-
-            Console.ReadLine();
+                fac.RunAsLocalService();
+            });
         }
     }
 }
