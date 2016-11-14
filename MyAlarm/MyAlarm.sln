@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniAlarm", "UniAlarm\UniAlarm.csproj", "{D2CB16C9-8EEE-4E65-8117-B5C6E7426DFC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{63D7BD1B-34A9-4F20-9B60-24C9826ED963}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniAlarmTests", "Tests\UniAlarmTests\UniAlarmTests.csproj", "{0D390143-6302-43E6-A224-0C8D3C2F7FDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +19,15 @@ Global
 		{D2CB16C9-8EEE-4E65-8117-B5C6E7426DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2CB16C9-8EEE-4E65-8117-B5C6E7426DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2CB16C9-8EEE-4E65-8117-B5C6E7426DFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D390143-6302-43E6-A224-0C8D3C2F7FDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D390143-6302-43E6-A224-0C8D3C2F7FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D390143-6302-43E6-A224-0C8D3C2F7FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D390143-6302-43E6-A224-0C8D3C2F7FDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0D390143-6302-43E6-A224-0C8D3C2F7FDD} = {63D7BD1B-34A9-4F20-9B60-24C9826ED963}
 	EndGlobalSection
 EndGlobal
