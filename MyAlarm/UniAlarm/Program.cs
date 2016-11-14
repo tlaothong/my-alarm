@@ -16,8 +16,9 @@ namespace UniAlarm
 
             Console.ReadLine();
 
-            var play2 = new SoundPlayer(@"D:\src\git\my-alarm\assets\aladdin_who_disturbs.wav");
-            play2.Play();
+            player.SoundLocation = @"D:\src\git\my-alarm\assets\aladdin_who_disturbs.wav";
+            player.Load();
+            player.Play();
 
             Console.ReadLine();
         }
