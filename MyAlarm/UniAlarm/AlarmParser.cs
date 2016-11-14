@@ -60,5 +60,19 @@ namespace UniAlarm
                 "Alarm Configuration is not property format: `{0}`",
                 alarmConfig));
         }
+
+        public AlarmConfig GetNextAlarm(TimeSpan fromTime)
+        {
+            return GetNextAlarm(fromTime, Parse());
+        }
+
+        internal AlarmConfig GetNextAlarm(TimeSpan fromTime, IEnumerable<AlarmConfig> alarms)
+        {
+            var nextAlarms = from alarm in alarms
+                             orderby alarm.Time
+                             where alarm.Time > fromTime
+                             select alarm;
+            return nextAlarms.FirstOrDefault();
+        }
     }
 }

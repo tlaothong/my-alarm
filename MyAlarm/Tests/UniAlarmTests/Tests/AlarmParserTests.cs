@@ -59,15 +59,27 @@ namespace UniAlarm.Tests
                     new AlarmConfig { Time = TimeSpan.FromHours(22), SoundPath = "url2" },
                     new AlarmConfig { Time = TimeSpan.FromHours(22.5), SoundPath = "file3" },
                     new AlarmConfig { Time = TimeSpan.FromHours(23), SoundPath = "url3" }
-                },
-                (a, b) => a.Time == b.Time && a.SoundPath == b.SoundPath
+                }
             );
         }
 
         [TestMethod]
         public void GetNextAlarm()
         {
-            Assert.Inconclusive();
+            var alarmsConfig = @"
+10:45 file1
+12:00 file2
+22:00 file3
+22:30 file4
+";
+            var lines = alarmsConfig.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            var parser = new AlarmParser("invalid_config_file");
+            var result = parser.GetNextAlarm(TimeSpan.FromHours(11.00), parser.Parse(lines));
+            result.ShouldBeEquivalentTo(new AlarmConfig
+            {
+                Time = TimeSpan.FromHours(12.00),
+                SoundPath = "file2",
+            });
         }
     }
 }

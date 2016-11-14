@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniAlarm
 {
+    [Equals]
     internal class AlarmConfig
     {
         public TimeSpan Time { get; set; }
