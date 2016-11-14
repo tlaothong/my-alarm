@@ -81,5 +81,24 @@ namespace UniAlarm.Tests
                 SoundPath = "file2",
             });
         }
+
+        [TestMethod]
+        public void GetNextAlarmForNextDay()
+        {
+            var alarmsConfig = @"
+10:45 file1
+12:00 file2
+22:00 file3
+22:30 file4
+";
+            var lines = alarmsConfig.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            var parser = new AlarmParser("invalid_config_file");
+            var result = parser.GetNextAlarm(TimeSpan.FromHours(23.00), parser.Parse(lines));
+            result.ShouldBeEquivalentTo(new AlarmConfig
+            {
+                Time = TimeSpan.FromHours(11.75), // 23.00 - 24.00 + 10:45
+                SoundPath = "file1",
+            });
+        }
     }
 }

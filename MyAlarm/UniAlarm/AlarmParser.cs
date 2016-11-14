@@ -72,7 +72,18 @@ namespace UniAlarm
                              orderby alarm.Time
                              where alarm.Time > fromTime
                              select alarm;
-            return nextAlarms.FirstOrDefault();
+
+            var nextAlarmToday = nextAlarms.FirstOrDefault();
+            if (nextAlarmToday != null)
+            {
+                return nextAlarmToday;
+            }
+
+            var firstAlarmOfTheDay = (from alarm in alarms
+                                      orderby alarm.Time
+                                      select alarm).FirstOrDefault();
+            firstAlarmOfTheDay.Time = firstAlarmOfTheDay.Time.Add(TimeSpan.FromHours(24) - fromTime);
+            return firstAlarmOfTheDay;
         }
     }
 }
