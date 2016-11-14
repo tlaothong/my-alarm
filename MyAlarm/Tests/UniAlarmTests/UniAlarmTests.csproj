@@ -6,7 +6,7 @@
     <ProjectGuid>{0D390143-6302-43E6-A224-0C8D3C2F7FDD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UniAlarmTests</RootNamespace>
+    <RootNamespace>UniAlarm</RootNamespace>
     <AssemblyName>UniAlarmTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -50,8 +50,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AlarmParserTests.cs" />
+    <Compile Include="Tests\AlarmParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\UniAlarm\UniAlarm.csproj">
+      <Project>{d2cb16c9-8eee-4e65-8117-b5c6e7426dfc}</Project>
+      <Name>UniAlarm</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
