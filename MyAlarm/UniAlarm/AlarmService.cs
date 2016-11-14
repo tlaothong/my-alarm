@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Media;
 using System.Text;
@@ -9,7 +10,13 @@ namespace UniAlarm
 {
     internal class AlarmService
     {
+        private readonly string appDir;
         private SoundPlayer player = new SoundPlayer();
+
+        public AlarmService(string appDir)
+        {
+            this.appDir = appDir;
+        }
 
         public void TryPlaySound()
         {
@@ -18,7 +25,9 @@ namespace UniAlarm
             {
                 player = new SoundPlayer();
             }
-            player.SoundLocation = "http://www.wavsource.com/snds_2016-10-30_1570758759693582/movies/aladdin/aladdin_fast.wav";
+
+            var file = Path.Combine(this.appDir, "alarms.txt");
+            player.SoundLocation = File.ReadAllText(file);
             player.Load();
             player.Play();
         }

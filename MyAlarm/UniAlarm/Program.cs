@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Media;
-using System.Text;
-using System.Threading.Tasks;
 using Topshelf;
 
 namespace UniAlarm
@@ -12,11 +7,13 @@ namespace UniAlarm
     {
         static void Main(string[] args)
         {
+            var appDir = AppContext.BaseDirectory;
+
             HostFactory.Run(fac =>
             {
                 fac.Service<AlarmService>(cfg =>
                 {
-                    cfg.ConstructUsing(() => new AlarmService())
+                    cfg.ConstructUsing(() => new AlarmService(appDir))
                         .WhenStarted(svc => svc.TryPlaySound())
                         .WhenStopped(svc => svc.Stop());
                 });
