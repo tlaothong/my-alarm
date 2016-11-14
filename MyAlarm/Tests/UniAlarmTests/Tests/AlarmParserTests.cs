@@ -31,5 +31,17 @@ namespace UniAlarm.Tests
             var parser = new AlarmParser(configpath);
             Assert.AreEqual(configpath, parser.ConfigFileFullPath, "Config Path");
         }
+
+        [TestMethod]
+        public void ParseAlarm()
+        {
+            Assert.Inconclusive();
+        }
+
+        [TestMethod]
+        public void GetNextAlarm()
+        {
+            Assert.Inconclusive();
+        }
     }
 }
