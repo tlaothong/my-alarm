@@ -18,7 +18,7 @@ namespace UniAlarm
                 {
                     cfg.ConstructUsing(() => new AlarmService())
                         .WhenStarted(svc => svc.TryPlaySound())
-                        .WhenStopped(svc => { });
+                        .WhenStopped(svc => svc.Stop());
                 });
                 fac.SetDescription("Universal Alarm App/Service");
                 fac.SetDisplayName("Universal Alarm Service");
