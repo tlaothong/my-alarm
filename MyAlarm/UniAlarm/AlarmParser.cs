@@ -18,10 +18,17 @@ namespace UniAlarm
 
         public IEnumerable<AlarmConfig> Parse()
         {
-            throw new NotImplementedException();
+            var configPath = this.ConfigFileFullPath;
+
+            if (!File.Exists(configPath))
+            {
+                throw new FileNotFoundException("Alarm Configuration file's not exists", configPath);
+            }
+            var lines = File.ReadLines(configPath);
+            return Parse(lines);
         }
 
-        internal IEnumerable<AlarmConfig> Parse(string[] alarmsConfigLines)
+        internal IEnumerable<AlarmConfig> Parse(IEnumerable<string> alarmsConfigLines)
         {
             var configs = from line in alarmsConfigLines
                           where !string.IsNullOrWhiteSpace(line)
