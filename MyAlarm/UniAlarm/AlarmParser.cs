@@ -82,7 +82,7 @@ namespace UniAlarm
             var firstAlarmOfTheDay = (from alarm in alarms
                                       orderby alarm.Time
                                       select alarm).FirstOrDefault();
-            firstAlarmOfTheDay.Time = firstAlarmOfTheDay.Time.Add(TimeSpan.FromHours(24) - fromTime);
+            firstAlarmOfTheDay.Time = firstAlarmOfTheDay.Time.Add(TimeSpan.FromHours(24));
             return firstAlarmOfTheDay;
         }
     }

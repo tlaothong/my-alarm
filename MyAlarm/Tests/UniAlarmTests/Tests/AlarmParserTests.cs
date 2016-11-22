@@ -96,7 +96,7 @@ namespace UniAlarm.Tests
             var result = parser.GetNextAlarm(TimeSpan.FromHours(23.00), parser.Parse(lines));
             result.ShouldBeEquivalentTo(new AlarmConfig
             {
-                Time = TimeSpan.FromHours(11.75), // 23.00 - 24.00 + 10:45
+                Time = TimeSpan.FromHours(34.75), // 24.00 + 10:45
                 SoundPath = "file1",
             });
         }
