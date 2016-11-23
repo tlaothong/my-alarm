@@ -1,13 +1,18 @@
-﻿using System;
+﻿using Microsoft.ApplicationInsights;
+using System;
 using Topshelf;
 
 namespace UniAlarm
 {
     class Program
     {
+        private static readonly TelemetryClient telemetry = new TelemetryClient();
+
         static void Main(string[] args)
         {
             var appDir = AppContext.BaseDirectory;
+
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             HostFactory.Run(fac =>
             {
@@ -21,8 +26,14 @@ namespace UniAlarm
                 fac.SetDisplayName("Universal Alarm Service");
                 fac.SetServiceName("UniAlarm");
 
-                fac.RunAsLocalService();
+                // Fix permission for some machines!
+                fac.RunAsLocalSystem();
             });
+        }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            telemetry.TrackException(e.ExceptionObject as Exception);
         }
     }
 }
